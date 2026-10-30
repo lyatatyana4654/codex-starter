@@ -1,0 +1,7 @@
+# Model and account selection stay with the user's Codex settings.
+approval_policy = "on-request"
+sandbox_mode = "workspace-write"
+project_doc_fallback_filenames = ["CLAUDE.md"]
+
+[sandbox_workspace_write]
+network_access = false

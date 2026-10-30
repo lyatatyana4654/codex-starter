@@ -1,0 +1,12 @@
+/.business/
+/.starter/
+/.codex/
+/.agents/
+.env
+.env.*
+!.env.example
+__pycache__/
+*.pyc
+.venv/
+.DS_Store
+/dist/

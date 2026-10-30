@@ -1,0 +1,42 @@
+# Native guardrails for common command forms. Compound/variant forms and
+# specific-variable .env access are checked by hooks/security.py.
+# No allow rules: this file never grants extra execution permissions.
+prefix_rule(
+    pattern = [["rm", "/bin/rm", "/usr/bin/rm"], ["-rf", "-fr", "-Rf", "-fR", "-rfv", "-frv"]],
+    decision = "forbidden",
+    justification = "Starter: recursive forced deletion is prohibited; remove only individually verified files.",
+    match = ["rm -rf example", "/bin/rm -fr example"],
+    not_match = ["rm temp.txt", "rm -r empty-fixture"],
+)
+prefix_rule(
+    pattern = [["rm", "/bin/rm", "/usr/bin/rm"], ["-r", "-R", "--recursive"], ["-f", "--force"]],
+    decision = "forbidden",
+    justification = "Starter: recursive forced deletion is prohibited.",
+    match = ["rm --recursive --force example", "rm -R -f example"],
+)
+prefix_rule(
+    pattern = [["rm", "/bin/rm", "/usr/bin/rm"], ["-f", "--force"], ["-r", "-R", "--recursive"]],
+    decision = "forbidden",
+    justification = "Starter: recursive forced deletion is prohibited.",
+    match = ["rm --force --recursive example"],
+)
+prefix_rule(
+    pattern = [["chmod", "/bin/chmod", "/usr/bin/chmod"], ["777", "0777"]],
+    decision = "forbidden",
+    justification = "Starter: mode 777 is prohibited; choose minimal file permissions.",
+    match = ["chmod 777 example"],
+    not_match = ["chmod 600 example"],
+)
+prefix_rule(
+    pattern = [["chmod", "/bin/chmod", "/usr/bin/chmod"], ["-R", "--recursive"], ["777", "0777"]],
+    decision = "forbidden",
+    justification = "Starter: mode 777 is prohibited; choose minimal file permissions.",
+    match = ["chmod -R 777 example"],
+)
+prefix_rule(
+    pattern = [["cat", "/bin/cat", "/usr/bin/cat"], [".env", ".env.local"]],
+    decision = "forbidden",
+    justification = "Starter: do not print whole environment files; use grep/rg for one specific variable.",
+    match = ["cat .env", "cat .env.local"],
+    not_match = ["cat .env.example", "cat CLAUDE.md"],
+)
