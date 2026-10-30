@@ -4,6 +4,8 @@
 
 Основан на [Claude Code Starter Артемия Миллера](https://github.com/artemiimillier/claude-code-starter), лицензия MIT. Адаптация рассчитана на нативные форматы Codex. Это независимый проект, не продукт OpenAI.
 
+[Скачать ZIP](https://github.com/lyatatyana4654/codex-starter/archive/refs/heads/main.zip) · [Пошаговая инструкция](START_HERE.md) · [Результаты проверок](https://github.com/lyatatyana4654/codex-starter/actions)
+
 ## Быстрый запуск
 
 Нужны Python 3.9+ и установленный Codex с поддержкой проектных hooks и TOML-агентов. Основной сценарий — macOS или Linux. [Совместимость](docs/compatibility.md).
